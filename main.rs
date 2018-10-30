@@ -29,11 +29,13 @@ fn main() {
                 vec.remove(0);
             }
 
-            vec.push(now.elapsed().unwrap());
+            vec.push(now.elapsed().unwrap().subsec_millis());
 
-            let average = 60000 / (vec.iter().sum::<std::time::Duration>() / (vec.iter().count() as u32)).subsec_millis();
+            let mut sorted_vec = vec.clone();
+            sorted_vec.sort();
+            let median = sorted_vec[sorted_vec.len() / 2];
 
-            println!("{} BPM", average);
+            println!("{} BPM", 60000 / median);
         }
     }
 }
