@@ -46,7 +46,7 @@ fn main() {
                 }
             };
 
-            println!("{} BPM", 60000 / median);
+            println!("{} BPM", 60_000 / median);
         }
     }
 }
