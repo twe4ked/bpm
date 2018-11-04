@@ -31,9 +31,20 @@ fn main() {
 
             vec.push(now.elapsed().unwrap().subsec_millis());
 
-            let mut sorted_vec = vec.clone();
-            sorted_vec.sort();
-            let median = sorted_vec[sorted_vec.len() / 2];
+            let median = if vec.len() == 1 {
+                vec[0]
+            } else {
+                let mut sorted_vec = vec.clone();
+                sorted_vec.sort();
+                if sorted_vec.len() % 2 == 0 {
+                    (
+                        sorted_vec[sorted_vec.len() / 2] +
+                        sorted_vec[(sorted_vec.len() / 2) - 1]
+                    ) / 2
+                } else {
+                    sorted_vec[sorted_vec.len() / 2]
+                }
+            };
 
             println!("{} BPM", 60000 / median);
         }
