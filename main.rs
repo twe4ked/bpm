@@ -22,7 +22,7 @@ fn main() {
         let mut buffer = [0;1];
 
         stdout.lock().flush().unwrap();
-        reader.read_exact(&mut buffer).unwrap();
+        reader.read_exact(&mut buffer).expect("Failed to read character");
 
         if buffer[0] == 32 {
             if vec.iter().count() >= 10 {
