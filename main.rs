@@ -21,7 +21,7 @@ fn main() {
         let mut reader = io::stdin();
         let mut buffer = [0;1];
 
-        stdout.lock().flush().unwrap();
+        stdout.lock().flush().expect("Failed to flush stream");
         reader.read_exact(&mut buffer).expect("Failed to read character");
 
         if buffer[0] == 32 {
