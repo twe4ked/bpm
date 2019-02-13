@@ -1,5 +1,5 @@
 use bpm;
-use std::{io, process};
+use std::{io::Result, process};
 
 fn main() {
     setup_terminal().unwrap_or_else(|err| {
@@ -13,7 +13,7 @@ fn main() {
     });
 }
 
-fn setup_terminal() -> io::Result<()> {
+fn setup_terminal() -> Result<()> {
     let mut termios = termios::Termios::from_fd(libc::STDIN_FILENO)?;
     termios.c_lflag &= !(termios::ICANON | termios::ECHO);
     termios::tcsetattr(0, termios::TCSANOW, &termios)?;

@@ -1,11 +1,11 @@
 use std::{
-    io::{self, Read, Write},
+    io::{self, Read, Result, Write},
     time::SystemTime,
 };
 
 const SAMPLE_COUNT: usize = 10;
 
-pub fn run() -> io::Result<()> {
+pub fn run() -> Result<()> {
     let mut samples = Vec::with_capacity(SAMPLE_COUNT);
 
     loop {
@@ -27,7 +27,7 @@ pub fn run() -> io::Result<()> {
     }
 }
 
-fn get_char() -> io::Result<char> {
+fn get_char() -> Result<char> {
     let stdout = io::stdout();
     let mut reader = io::stdin();
     let mut buffer = [0; 1];
