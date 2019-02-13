@@ -1,8 +1,8 @@
-use std::io;
-use std::io::Read;
-use std::io::Write;
-use std::mem;
-use std::time::SystemTime;
+use std::{
+    io::{self, Read, Write},
+    mem,
+    time::SystemTime,
+};
 
 fn main() {
     let fd = 0;
