@@ -8,16 +8,8 @@ pub fn run() {
 
     loop {
         let now = SystemTime::now();
-        let stdout = io::stdout();
-        let mut reader = io::stdin();
-        let mut buffer = [0; 1];
 
-        stdout.lock().flush().expect("Failed to flush stream");
-        reader
-            .read_exact(&mut buffer)
-            .expect("Failed to read character");
-
-        if buffer[0] == 32 {
+        if get_char() == ' ' {
             if vec.iter().count() >= 10 {
                 vec.remove(0);
             }
@@ -43,4 +35,16 @@ pub fn run() {
             println!("{} BPM", 60_000 / median);
         }
     }
+}
+
+fn get_char() -> char {
+    let stdout = io::stdout();
+    let mut reader = io::stdin();
+    let mut buffer = [0; 1];
+
+    stdout.lock().flush().expect("Failed to flush stream");
+    reader
+        .read_exact(&mut buffer)
+        .expect("Failed to read character");
+    buffer[0] as char
 }
