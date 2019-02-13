@@ -16,17 +16,7 @@ pub fn run() {
 
             vec.push(now.elapsed().unwrap().subsec_millis());
 
-            let mut median = if vec.len() == 1 {
-                vec[0]
-            } else {
-                let mut sorted_vec = vec.clone();
-                sorted_vec.sort();
-                if sorted_vec.len() % 2 == 0 {
-                    (sorted_vec[sorted_vec.len() / 2] + sorted_vec[(sorted_vec.len() / 2) - 1]) / 2
-                } else {
-                    sorted_vec[sorted_vec.len() / 2]
-                }
-            };
+            let mut median = median(&vec);
 
             if median == 0 {
                 median = 1;
@@ -47,4 +37,18 @@ fn get_char() -> char {
         .read_exact(&mut buffer)
         .expect("Failed to read character");
     buffer[0] as char
+}
+
+fn median(vec: &Vec<u32>) -> u32 {
+    if vec.len() == 1 {
+        vec[0]
+    } else {
+        let mut sorted_vec = vec.clone();
+        sorted_vec.sort();
+        if sorted_vec.len() % 2 == 0 {
+            (sorted_vec[sorted_vec.len() / 2] + sorted_vec[(sorted_vec.len() / 2) - 1]) / 2
+        } else {
+            sorted_vec[sorted_vec.len() / 2]
+        }
+    }
 }
