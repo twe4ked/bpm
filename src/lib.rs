@@ -5,28 +5,24 @@ use std::{
 
 const SAMPLE_COUNT: usize = 10;
 
-pub fn run() {
+pub fn run() -> io::Result<()> {
     let mut samples = Vec::with_capacity(SAMPLE_COUNT);
 
     loop {
         let now = SystemTime::now();
 
-        match get_char() {
-            Ok(' ') => {
-                if samples.iter().count() >= SAMPLE_COUNT {
-                    samples.remove(0);
-                }
-                samples.push(now.elapsed().unwrap().subsec_millis());
-
-                let median = median(&samples);
-                if median == 0 {
-                    println!("??? BPM");
-                } else {
-                    println!("{} BPM", 60_000 / median);
-                }
+        if get_char()? == ' ' {
+            if samples.iter().count() >= SAMPLE_COUNT {
+                samples.remove(0);
             }
-            Ok(_) => {}
-            Err(e) => panic!("Error fetching character: {}", e),
+            samples.push(now.elapsed().unwrap().subsec_millis());
+
+            let median = median(&samples);
+            if median == 0 {
+                println!("??? BPM");
+            } else {
+                println!("{} BPM", 60_000 / median);
+            }
         }
     }
 }

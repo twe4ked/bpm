@@ -7,7 +7,10 @@ fn main() {
         process::exit(1);
     });
 
-    bpm::run();
+    bpm::run().unwrap_or_else(|err| {
+        println!("An error occured: {}", err);
+        process::exit(1);
+    });
 }
 
 fn setup_terminal() -> io::Result<()> {
