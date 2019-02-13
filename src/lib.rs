@@ -41,12 +41,12 @@ fn median(vec: &[u32]) -> u32 {
     if vec.len() == 1 {
         vec[0]
     } else {
-        let mut sorted_vec = vec.to_owned();
-        sorted_vec.sort();
-        if sorted_vec.len() % 2 == 0 {
-            (sorted_vec[sorted_vec.len() / 2] + sorted_vec[(sorted_vec.len() / 2) - 1]) / 2
+        let mut vec = vec.to_owned();
+        vec.sort();
+        if vec.len() % 2 == 0 {
+            (vec[vec.len() / 2] + vec[(vec.len() / 2) - 1]) / 2
         } else {
-            sorted_vec[sorted_vec.len() / 2]
+            vec[vec.len() / 2]
         }
     }
 }
