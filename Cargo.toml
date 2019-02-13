@@ -5,7 +5,3 @@ authors = ["Odin Dutton <odindutton@gmail.com>"]
 
 [dependencies]
 libc = "0.2"
-
-[[bin]]
-name = "bpm"
-path = "main.rs"
