@@ -15,11 +15,9 @@ pub fn run() {
             if samples.iter().count() >= SAMPLE_COUNT {
                 samples.remove(0);
             }
-
             samples.push(now.elapsed().unwrap().subsec_millis());
 
             let median = median(&samples);
-
             if median == 0 {
                 println!("??? BPM");
             } else {
