@@ -16,13 +16,13 @@ pub fn run() {
 
             vec.push(now.elapsed().unwrap().subsec_millis());
 
-            let mut median = median(&vec);
+            let median = median(&vec);
 
             if median == 0 {
-                median = 1;
+                println!("??? BPM");
+            } else {
+                println!("{} BPM", 60_000 / median);
             }
-
-            println!("{} BPM", 60_000 / median);
         }
     }
 }
