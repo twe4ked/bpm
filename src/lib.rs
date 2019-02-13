@@ -11,32 +11,34 @@ pub fn run() {
     loop {
         let now = SystemTime::now();
 
-        if get_char() == ' ' {
-            if samples.iter().count() >= SAMPLE_COUNT {
-                samples.remove(0);
-            }
-            samples.push(now.elapsed().unwrap().subsec_millis());
+        match get_char() {
+            Ok(' ') => {
+                if samples.iter().count() >= SAMPLE_COUNT {
+                    samples.remove(0);
+                }
+                samples.push(now.elapsed().unwrap().subsec_millis());
 
-            let median = median(&samples);
-            if median == 0 {
-                println!("??? BPM");
-            } else {
-                println!("{} BPM", 60_000 / median);
+                let median = median(&samples);
+                if median == 0 {
+                    println!("??? BPM");
+                } else {
+                    println!("{} BPM", 60_000 / median);
+                }
             }
+            Ok(_) => {}
+            Err(e) => panic!("Error fetching character: {}", e),
         }
     }
 }
 
-fn get_char() -> char {
+fn get_char() -> io::Result<char> {
     let stdout = io::stdout();
     let mut reader = io::stdin();
     let mut buffer = [0; 1];
 
-    stdout.lock().flush().expect("Failed to flush stream");
-    reader
-        .read_exact(&mut buffer)
-        .expect("Failed to read character");
-    buffer[0] as char
+    stdout.lock().flush()?;
+    reader.read_exact(&mut buffer)?;
+    Ok(buffer[0] as char)
 }
 
 fn median(vec: &[u32]) -> u32 {
