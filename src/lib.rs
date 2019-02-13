@@ -41,11 +41,11 @@ fn get_char() -> char {
     buffer[0] as char
 }
 
-fn median(vec: &Vec<u32>) -> u32 {
+fn median(vec: &[u32]) -> u32 {
     if vec.len() == 1 {
         vec[0]
     } else {
-        let mut sorted_vec = vec.clone();
+        let mut sorted_vec = vec.to_owned();
         sorted_vec.sort();
         if sorted_vec.len() % 2 == 0 {
             (sorted_vec[sorted_vec.len() / 2] + sorted_vec[(sorted_vec.len() / 2) - 1]) / 2
