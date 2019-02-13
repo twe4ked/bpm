@@ -1,15 +1,19 @@
 use std::{
     io::{self, Read, Write},
-    mem,
+    process,
     time::SystemTime,
 };
 
 fn main() {
-    let fd = 0;
-    let mut termios = unsafe { mem::uninitialized() };
-    unsafe { libc::tcgetattr(fd, &mut termios) };
-    termios.c_lflag &= !(libc::ICANON | libc::ECHO);
-    unsafe { libc::tcsetattr(fd, libc::TCSAFLUSH, &termios) };
+    let mut termios = termios::Termios::from_fd(libc::STDIN_FILENO).unwrap_or_else(|err| {
+        println!("An error occured: {}", err);
+        process::exit(1);
+    });
+    termios.c_lflag &= !(termios::ICANON | termios::ECHO);
+    termios::tcsetattr(0, termios::TCSANOW, &termios).unwrap_or_else(|err| {
+        println!("An error occured: {}", err);
+        process::exit(1);
+    });
 
     let mut vec = Vec::with_capacity(10);
 
