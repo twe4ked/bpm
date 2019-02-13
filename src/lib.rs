@@ -3,14 +3,16 @@ use std::{
     time::SystemTime,
 };
 
+const SAMPLE_COUNT: usize = 10;
+
 pub fn run() {
-    let mut vec = Vec::with_capacity(10);
+    let mut vec = Vec::with_capacity(SAMPLE_COUNT);
 
     loop {
         let now = SystemTime::now();
 
         if get_char() == ' ' {
-            if vec.iter().count() >= 10 {
+            if vec.iter().count() >= SAMPLE_COUNT {
                 vec.remove(0);
             }
 
