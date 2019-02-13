@@ -6,19 +6,19 @@ use std::{
 const SAMPLE_COUNT: usize = 10;
 
 pub fn run() {
-    let mut vec = Vec::with_capacity(SAMPLE_COUNT);
+    let mut samples = Vec::with_capacity(SAMPLE_COUNT);
 
     loop {
         let now = SystemTime::now();
 
         if get_char() == ' ' {
-            if vec.iter().count() >= SAMPLE_COUNT {
-                vec.remove(0);
+            if samples.iter().count() >= SAMPLE_COUNT {
+                samples.remove(0);
             }
 
-            vec.push(now.elapsed().unwrap().subsec_millis());
+            samples.push(now.elapsed().unwrap().subsec_millis());
 
-            let median = median(&vec);
+            let median = median(&samples);
 
             if median == 0 {
                 println!("??? BPM");
