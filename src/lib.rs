@@ -6,6 +6,8 @@ use std::{
 const SAMPLE_COUNT: usize = 10;
 
 pub fn run() -> Result<()> {
+    setup_terminal()?;
+
     let mut samples = Vec::with_capacity(SAMPLE_COUNT);
 
     loop {
@@ -49,4 +51,11 @@ fn median(vec: &[u32]) -> u32 {
             vec[vec.len() / 2]
         }
     }
+}
+
+fn setup_terminal() -> Result<()> {
+    let mut termios = termios::Termios::from_fd(libc::STDIN_FILENO)?;
+    termios.c_lflag &= !(termios::ICANON | termios::ECHO);
+    termios::tcsetattr(0, termios::TCSANOW, &termios)?;
+    Ok(())
 }
