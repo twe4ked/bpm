@@ -17,7 +17,7 @@ pub fn run() -> Result<()> {
             if samples.iter().count() >= SAMPLE_COUNT {
                 samples.remove(0);
             }
-            samples.push(now.elapsed().unwrap().subsec_millis());
+            samples.push(now.elapsed().unwrap().as_millis() as u32);
 
             let median = median(&samples);
             if median == 0 {
